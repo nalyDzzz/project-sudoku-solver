@@ -67,23 +67,24 @@ module.exports = function (app) {
 
     if (/[^1-9]/.test(value.toString())) {
       return res.json({ error: "Invalid value" });
-    };
+    }
 
     let conflict = [];
 
     if (!solver.checkRowPlacement(puzzle, row, col, value)) {
-      conflict.push('row');
-    };
+      conflict.push("row");
+    }
 
     if (!solver.checkColPlacement(puzzle, row, col, value)) {
-      conflict.push('column');
-    };
+      conflict.push("column");
+    }
 
     if (!solver.checkRegionPlacement(puzzle, row, col, value)) {
-      conflict.push('region');
-    };
+      conflict.push("region");
+    }
 
-    return res.json(conflict.length ? { valid: false, conflict: conflict } : { valid: true }
+    return res.json(
+      conflict.length ? { valid: false, conflict: conflict } : { valid: true }
     );
   });
 
@@ -91,13 +92,17 @@ module.exports = function (app) {
     const { puzzle } = req.body;
 
     if (!puzzle) {
-      return res.json({ error: "Required field missing"})
-    };
+      return res.json({ error: "Required field missing" });
+    }
 
     checkPuzzle(res, puzzle);
 
     const solvedPuzzle = solver.solve(puzzle);
 
-    return res.json(solvedPuzzle ? { solution: solvedPuzzle } : { error: "Puzzle cannot be solved"})
+    return res.json(
+      solvedPuzzle
+        ? { solution: solvedPuzzle }
+        : { error: "Puzzle cannot be solved" }
+    );
   });
 };

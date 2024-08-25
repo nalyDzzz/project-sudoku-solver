@@ -1,9 +1,9 @@
 class SudokuSolver {
   validate(puzzleString) {
-    // Validates the submitted puzzleString and makes sure it has exactly 81 characters of only 1-9 or .'s
+    // Checks if puzzle has exactly 81 characters as well as valid characters
     if (puzzleString.length !== 81) return false;
     if (puzzleString.match(/[^1-9.]/g)) return false;
-
+    // For loop which checks if puzzle is valid
     for (let i = 0; i < puzzleString.length; i++) {
       const row = Math.floor(i / 9) + 1;
       const col = (i % 9) + 1;
@@ -16,14 +16,16 @@ class SudokuSolver {
         !this.checkRowPlacement(puzzleString, row, col, value) ||
         !this.checkRegionPlacement(puzzleString, row, col, value)
       ) {
-        console.log(`Invalid placement at row: ${row}, col: ${col}, value: ${value}`);
+        console.log(
+          `Invalid placement at row: ${row}, col: ${col}, value: ${value}`
+        );
         return false;
       }
     }
     return true;
   }
   checkRowPlacement(puzzleString, row, column, value) {
-    // Checks the current state of the full 9 rows after validation of puzzle string
+    // Checks the current state of the full 9 rows
     const rowStart = (row - 1) * 9;
     let rowValues = puzzleString.slice(rowStart, rowStart + 9);
     rowValues = rowValues.slice(0, column - 1) + rowValues.slice(column);
@@ -32,7 +34,7 @@ class SudokuSolver {
   }
 
   checkColPlacement(puzzleString, row, column, value) {
-    // Checks the current state of the full 9 columns after validation of puzzle string
+    // Checks the current state of the full 9 columns
     const colStart = column - 1;
     let colValues = [];
 
@@ -53,7 +55,7 @@ class SudokuSolver {
     // Check if the value at the index matches the value being checked
     if (puzzleString[index] === value) {
       return true;
-    };
+    }
 
     let regionValues = [];
 
