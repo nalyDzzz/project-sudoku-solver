@@ -14,8 +14,9 @@ class SudokuSolver {
       if (
         !this.checkColPlacement(puzzleString, row, col, value) ||
         !this.checkRowPlacement(puzzleString, row, col, value) ||
-        this.checkRegionPlacement(puzzleString, row, col, value)
+        !this.checkRegionPlacement(puzzleString, row, col, value)
       ) {
+        console.log(`Invalid placement at row: ${row}, col: ${col}, value: ${value}`);
         return false;
       }
     }
