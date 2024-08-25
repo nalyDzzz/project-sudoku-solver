@@ -47,6 +47,12 @@ class SudokuSolver {
     // Calculate the starting index of the 3x3 region
     const regionRowStart = Math.floor((row - 1) / 3) * 3;
     const regionColStart = Math.floor((column - 1) / 3) * 3;
+    const index = (row - 1) * 9 + (column - 1);
+
+    // Check if the value at the index matches the value being checked
+    if (puzzleString[index] === value) {
+      return true;
+    };
 
     let regionValues = [];
 
